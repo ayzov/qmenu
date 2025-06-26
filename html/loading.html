@@ -1,0 +1,189 @@
+<html>
+<style>
+#spambox {
+    font-family: 'Montserrat', sans-serif; 
+    font-size: 13px;
+    color: #b0bec5;
+    background: linear-gradient(to right, rgba(33, 33, 33, 0.9), rgba(66, 66, 66, 0.9));
+    padding: 15px;
+    border-radius: 6px;
+    margin: 10px;
+    max-height: 180px;
+    overflow-y: auto;
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.5);
+    line-height: 1.5;
+}
+
+/* From Uiverse.io by bociKond */
+.spinner {
+  width: 70.4px;
+  height: 70.4px;
+  --clr: rgb(247, 197, 159);
+  --clr-alpha: rgb(247, 197, 159,.1);
+  animation: spinner 1.6s infinite ease;
+  transform-style: preserve-3d;
+  margin: 20px auto;
+}
+
+.spinner > div {
+  background-color: var(--clr-alpha);
+  height: 100%;
+  position: absolute;
+  width: 100%;
+  border: 3.5px solid var(--clr);
+}
+
+.spinner div:nth-of-type(1) {
+  transform: translateZ(-35.2px) rotateY(180deg);
+}
+
+.spinner div:nth-of-type(2) {
+  transform: rotateY(-270deg) translateX(50%);
+  transform-origin: top right;
+}
+
+.spinner div:nth-of-type(3) {
+  transform: rotateY(270deg) translateX(-50%);
+  transform-origin: center left;
+}
+
+.spinner div:nth-of-type(4) {
+  transform: rotateX(90deg) translateY(-50%);
+  transform-origin: top center;
+}
+
+.spinner div:nth-of-type(5) {
+  transform: rotateX(-90deg) translateY(50%);
+  transform-origin: bottom center;
+}
+
+.spinner div:nth-of-type(6) {
+  transform: translateZ(35.2px);
+}
+
+@keyframes spinner {
+  0% {
+    transform: rotate(45deg) rotateX(-25deg) rotateY(25deg);
+  }
+
+  50% {
+    transform: rotate(45deg) rotateX(-385deg) rotateY(25deg);
+  }
+
+  100% {
+    transform: rotate(45deg) rotateX(-385deg) rotateY(385deg);
+  }
+}
+
+.loader {
+    width: 48px;
+    height: 48px;
+    border: 5px solid #FFF;
+    border-bottom-color: hsl(135, 100%, 50%);
+    border-radius: 50%;
+    display: inline-block;
+    box-sizing: border-box;
+    animation: rotation 1s linear infinite;
+}
+
+@keyframes rotation {
+    0% {
+        transform: rotate(0deg);
+    }
+    100% {
+        transform: rotate(360deg);
+    }
+}
+</style>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500&display=swap" rel="stylesheet">
+</head>
+
+	<head>
+		<title>Loading..</title>
+		<link rel="stylesheet" type="text/css" href="loading.css?3" />
+	</head>
+	<body>
+
+		<div id="background">
+			<div id="container">
+
+				<img src='https://i.pinimg.com/originals/70/46/07/704607815a5b51c5bea96258e8b25ada.gif' class="bounce" style="max-width: 50%; height: auto;"/>
+
+		<center>
+		    <br />
+		    <div class="spinner">
+		      <div></div>
+		      <div></div>
+		      <div></div>
+		      <div></div>
+		      <div></div>
+		      <div></div>
+		    </div>
+		    <!-- Старый лоадер можно оставить или удалить -->
+		    <!-- <div class="loader"></div> -->
+		</center>
+
+			</div>
+
+			<div class="server_info">
+				<img id="mapimg" src="asset://mapimage/invalid_map"></img><div class="text">
+					<span id="serverName">boobjob blowjob footjob</span><br>
+					<span id="serverMap">gm_bigcock</span><br>
+					<span id="serverGamemode">gamemodes</span>
+				</div>
+			</div>
+
+			<div id="spambox">
+			</div>
+
+		</div>
+
+		<script type="text/javascript">
+			document.addEventListener( "DOMContentLoaded", function() {
+				var today = new Date();
+
+				var isHalloween = today.getMonth() == 9 && today.getDate() >= 15 || today.getMonth() == 10 && today.getDate() <= 5;
+				var darkMode = today.getHours() >= 19 || today.getHours() <= 7;
+
+				var isSupportsSystemDarkMode = navigator.userAgent.match(/Chrome\/(\d+)/)[1] >= 76;
+				var systemDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches;
+
+				if ( isHalloween || ( isSupportsSystemDarkMode ? systemDarkMode : darkMode ) )
+				{
+					document.body.classList.add( "dark" );
+				}
+			} );
+
+			function GameDetails( servername, serverurl, mapname, maxplayers, steamid, gamemode, volume, lang, gamemodeNice )
+			{
+				document.querySelector("#serverName").innerText = servername;
+				document.querySelector("#serverMap").innerText = mapname;
+				document.querySelector("#serverGamemode").innerText = gamemodeNice;
+				document.querySelector("#mapimg").setAttribute( "src", "asset://mapimage/" + mapname );
+				document.body.style.backgroundImage = "url('asset://mapimage/" + mapname + "')";
+
+				document.querySelector(".server_info").classList.add( "visible" );
+
+				document.querySelector("#spambox").innerHTML += "Адрес сервера: " + serverurl + "<br>";
+				document.querySelector("#spambox").innerHTML += "Название сервера: " + servername + "<br>";
+				document.querySelector("#spambox").innerHTML += "Макс. игроков: " + maxplayers + "<br>";
+				document.querySelector("#spambox").innerHTML += "Steam ID: " + steamid + "<br>";
+				document.querySelector("#spambox").innerHTML += "Режим игры: " + gamemode + "<br>";
+				document.querySelector("#spambox").innerHTML += "Карта: " + mapname + "<br>";
+				document.querySelector("#spambox").innerHTML += "Громкость: " + volume + "<br>";
+				document.querySelector("#spambox").innerHTML += "Язык: " + lang + "<br>";
+			}
+
+			function DownloadingFile( file )
+			{
+				document.querySelector("#spambox").innerHTML = "<span style='color:red'>" + file + "</span><br>" + document.querySelector("#spambox").innerHTML;
+			}
+
+			function SetStatusChanged( status )
+			{
+				document.querySelector("#spambox").innerHTML = status + "<br>" + document.querySelector("#spambox").innerHTML;
+			}
+		</script>
+
+	</body>
+</html>
